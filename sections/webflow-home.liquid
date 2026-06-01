@@ -1,0 +1,23 @@
+{% comment %}
+  Webflow homepage shell.
+  The exported markup is stored in chunked asset JavaScript files so this section
+  stays below Shopify's 256 KB section upload limit.
+{% endcomment %}
+<div id="longmouth-webflow-home-root" data-longmouth-webflow-home-root></div>
+<script src="{{ 'webflow-home-markup-part-1.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow-home-markup-part-2.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow-home-markup-part-3.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow-home-markup-part-4.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow-home-bootstrap.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Webflow home",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Webflow home"
+    }
+  ]
+}
+{% endschema %}

@@ -1,0 +1,10 @@
+{
+  "sections": {
+    "webflow_home": {
+      "type": "webflow-home"
+    }
+  },
+  "order": [
+    "webflow_home"
+  ]
+}
