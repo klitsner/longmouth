@@ -1,0 +1,14 @@
+# Shopify/Webflow local binary assets are synced from longmouth/images by
+# scripts/sync-webflow-assets.sh before local preview/deploy. Keeping them out of
+# this PR avoids binary-file review limitations while preserving the source export.
+/assets/*.png
+/assets/*.webp
+/assets/*.avif
+/assets/*.jpg
+/assets/*.jpeg
+/assets/*.otf
+/assets/*.ttf
+/assets/*.woff
+/assets/*.woff2
+/assets/*.mp4
+/assets/*.webm
