@@ -1,0 +1,10 @@
+extends: theme-check:recommended
+
+TemplateLength:
+  enabled: false
+ImgWidthAndHeight:
+  enabled: false
+ImgLazyLoading:
+  enabled: false
+RemoteAsset:
+  enabled: false

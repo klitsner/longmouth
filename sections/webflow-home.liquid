@@ -1,0 +1,19 @@
+{% comment %}
+  Webflow export ported into a Shopify section.
+  The original Smootify/headless geolocation bootstrap has been removed so Shopify owns localization, cart, checkout, and backend context.
+{% endcomment %}
+{% render 'webflow-home-part-1' %}
+{% render 'webflow-home-part-2' %}
+{% render 'webflow-home-part-3' %}
+
+{% schema %}
+{
+  "name": "Webflow home",
+  "settings": [],
+  "presets": [
+    {
+      "name": "Webflow home"
+    }
+  ]
+}
+{% endschema %}
