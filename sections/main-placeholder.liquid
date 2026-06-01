@@ -1,0 +1,26 @@
+<main class="shopify-placeholder" style="padding: 2rem;">
+  {% case request.page_type %}
+    {% when 'product' %}
+      <h1>{{ product.title }}</h1>
+      <div>{{ product.description }}</div>
+    {% when 'collection' %}
+      <h1>{{ collection.title }}</h1>
+    {% when 'cart' %}
+      <h1>Cart</h1>
+      <p>{{ cart.item_count }} items — {{ cart.total_price | money }}</p>
+      <a href="/checkout">Checkout</a>
+    {% when 'page' %}
+      <h1>{{ page.title }}</h1>
+      <div>{{ page.content }}</div>
+    {% else %}
+      <h1>{{ shop.name }}</h1>
+      <p>This template is ready for the next Shopify-native conversion pass.</p>
+  {% endcase %}
+</main>
+
+{% schema %}
+{
+  "name": "Placeholder",
+  "settings": []
+}
+{% endschema %}
