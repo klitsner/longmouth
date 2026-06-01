@@ -1,0 +1,28 @@
+{% comment %}
+  Longmouth homepage markup, split into snippets so each Shopify file stays under upload limits.
+  CSS lives in assets/longmouth*.css.liquid and JavaScript is organized in assets/longmouth-home-*.js by role.
+{% endcomment %}
+<link rel="stylesheet" href="{{ 'longmouth-home-inline.css' | asset_url }}">
+{% render 'home-markup-part-1' %}
+{% render 'home-markup-part-2' %}
+{% render 'home-markup-part-3' %}
+{% render 'home-markup-part-4' %}
+<script src="{{ 'longmouth-home-core.js' | asset_url }}" defer></script>
+<script src="{{ 'longmouth-home-analytics.js' | asset_url }}" defer></script>
+<script src="{{ 'longmouth-home-home-effects.js' | asset_url }}" defer></script>
+<script src="{{ 'longmouth-home-shop-ui.js' | asset_url }}" defer></script>
+<script src="{{ 'longmouth-home-privacy.js' | asset_url }}" defer></script>
+<script src="{{ 'jquery.js' | asset_url }}?site=676ec6a21be4ad046e2f6c8d" defer></script>
+<script src="{{ 'webflow.schunk.36b8fb49256177c8.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow.schunk.29a6d3d1db723d33.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow.schunk.dac51c455b7e76af.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow.schunk.9892d91b67bbb7de.js' | asset_url }}" defer></script>
+<script src="{{ 'webflow-script.js' | asset_url }}" defer></script>
+
+{% schema %}
+{
+  "name": "Longmouth home",
+  "settings": [],
+  "presets": [{ "name": "Longmouth home" }]
+}
+{% endschema %}
