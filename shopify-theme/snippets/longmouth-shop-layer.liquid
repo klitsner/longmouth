@@ -1,0 +1,30 @@
+<div class="shop__wrap" data-view="shop" hidden>
+  <div class="product-list__wrap">
+    <div class="shop__filter-wrap">
+      <label for="tagFilter" class="field-label">filter</label>
+      <select id="tagFilter" class="text-field-2">
+        <option value="all">all</option>
+        {% assign tag_values = '' %}
+        {% for product in collection.products %}
+          {% for tag in product.tags %}
+            {% assign tag_handle = tag | downcase %}
+            {% unless tag_values contains tag_handle %}
+              {% assign tag_values = tag_values | append: tag_handle | append: '|' %}
+              <option value="{{ tag_handle }}">{{ tag }}</option>
+            {% endunless %}
+          {% endfor %}
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="product-list">
+      {% for product in collection.products %}
+        {% render 'longmouth-product-card', product: product %}
+      {% else %}
+        <p>No products found in this collection.</p>
+      {% endfor %}
+    </div>
+  </div>
+
+  {% render 'longmouth-product-drawer', collection: collection %}
+</div>

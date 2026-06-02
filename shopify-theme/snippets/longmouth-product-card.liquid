@@ -1,0 +1,47 @@
+{% assign hover_media = product.metafields.custom.hover_image.value %}
+
+<article
+  class="s__product-item product-list__item"
+  data-id="{{ product.id }}"
+  data-product-handle="{{ product.handle }}"
+  data-product-tags="{{ product.tags | join: ',' | downcase }}"
+>
+  <a href="{{ product.url }}" class="product-list__link" data-open-product-drawer>
+    {% if product.featured_image %}
+      <img
+        class="product-list__image product-list__image--primary"
+        loading="lazy"
+        decoding="async"
+        src="{{ product.featured_image | image_url: width: 900 }}"
+        width="{{ product.featured_image.width }}"
+        height="{{ product.featured_image.height }}"
+        alt="{{ product.title | escape }}"
+      >
+    {% endif %}
+
+    {% if hover_media != blank %}
+      <img
+        class="product-list__image product-list__image--hover"
+        loading="lazy"
+        decoding="async"
+        src="{{ hover_media | image_url: width: 900 }}"
+        width="{{ hover_media.width }}"
+        height="{{ hover_media.height }}"
+        alt="{{ product.title | escape }} hover"
+      >
+    {% elsif product.images.size > 1 %}
+      <img
+        class="product-list__image product-list__image--hover"
+        loading="lazy"
+        decoding="async"
+        src="{{ product.images[1] | image_url: width: 900 }}"
+        width="{{ product.images[1].width }}"
+        height="{{ product.images[1].height }}"
+        alt="{{ product.title | escape }} hover"
+      >
+    {% endif %}
+
+    <h3 class="product-list__title">{{ product.title }}</h3>
+    <div class="product-list__price">{{ product.price | money }}</div>
+  </a>
+</article>

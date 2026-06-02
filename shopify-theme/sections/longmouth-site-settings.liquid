@@ -1,0 +1,96 @@
+{% assign contact_heading = settings.contact_heading | default: section.settings.contact_heading %}
+{% assign contact_email = settings.contact_email | default: section.settings.contact_email %}
+{% assign youtube_url = settings.youtube_url | default: section.settings.youtube_url %}
+{% assign tiktok_url = settings.tiktok_url | default: section.settings.tiktok_url %}
+{% assign instagram_url = settings.instagram_url | default: section.settings.instagram_url %}
+{% assign waitlist_heading = settings.waitlist_heading | default: section.settings.waitlist_heading %}
+{% assign waitlist_policy_prefix = settings.waitlist_policy_prefix | default: section.settings.waitlist_policy_prefix %}
+{% assign waitlist_policy_link_text = settings.waitlist_policy_link_text | default: section.settings.waitlist_policy_link_text %}
+{% assign cookie_notice_text = settings.cookie_notice_text | default: section.settings.cookie_notice_text %}
+{% assign cookie_policy_url = settings.cookie_policy_url | default: section.settings.cookie_policy_url %}
+
+<div id="longmouth-site-settings" hidden
+  data-site-title="{{ section.settings.site_title | escape }}"
+  data-menu-label-shop="{{ section.settings.menu_label_shop | escape }}"
+  data-menu-label-waitlist="{{ section.settings.menu_label_waitlist | escape }}"
+  data-menu-label-contact="{{ section.settings.menu_label_contact | escape }}"
+  data-menu-label-policy="{{ section.settings.menu_label_policy | escape }}"
+  data-menu-label-back-home="{{ section.settings.menu_label_back_home | escape }}"
+  data-contact-heading="{{ contact_heading | escape }}"
+  data-contact-email="{{ contact_email | escape }}"
+  data-youtube-url="{{ youtube_url | escape }}"
+  data-tiktok-url="{{ tiktok_url | escape }}"
+  data-instagram-url="{{ instagram_url | escape }}"
+  data-waitlist-heading="{{ waitlist_heading | escape }}"
+  data-waitlist-policy-prefix="{{ waitlist_policy_prefix | escape }}"
+  data-waitlist-policy-link-text="{{ waitlist_policy_link_text | escape }}"
+  data-cookie-notice-text="{{ cookie_notice_text | escape }}"
+  data-cookie-policy-url="{{ cookie_policy_url | escape }}"
+></div>
+
+<div class="cookie-notice" id="cookieNotice">
+  <span data-cookie-notice-text>{{ cookie_notice_text }}</span>
+  {% if cookie_policy_url != blank %}
+    <a href="{{ cookie_policy_url }}" data-cookie-notice-link>Privacy Policy</a>
+  {% else %}
+    <a href="#" data-cookie-notice-link hidden>Privacy Policy</a>
+  {% endif %}
+  <button class="close-button" id="closeCookieNotice">×</button>
+</div>
+
+{% schema %}
+{
+  "name": "Site settings",
+  "settings": [
+    {
+      "type": "header",
+      "content": "▸ Site"
+    },
+    {
+      "type": "text",
+      "id": "site_title",
+      "label": "Site title",
+      "default": "longmouth.world"
+    },
+    {
+      "type": "header",
+      "content": "▸ Menu labels"
+    },
+    {
+      "type": "text",
+      "id": "menu_label_shop",
+      "label": "Shop label",
+      "default": "shop"
+    },
+    {
+      "type": "text",
+      "id": "menu_label_waitlist",
+      "label": "Waitlist label",
+      "default": "maillist"
+    },
+    {
+      "type": "text",
+      "id": "menu_label_contact",
+      "label": "Contact label",
+      "default": "contact"
+    },
+    {
+      "type": "text",
+      "id": "menu_label_policy",
+      "label": "Policy label",
+      "default": "other stuff"
+    },
+    {
+      "type": "text",
+      "id": "menu_label_back_home",
+      "label": "Back home label",
+      "default": "back to world"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Site settings"
+    }
+  ]
+}
+{% endschema %}

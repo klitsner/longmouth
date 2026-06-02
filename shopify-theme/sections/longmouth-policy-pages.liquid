@@ -1,0 +1,41 @@
+<section class="pages__wrap" data-view="policy" hidden>
+  {% assign about_page = section.settings.policy_about_page %}
+  {% assign privacy_page = section.settings.policy_privacy_page %}
+  {% assign shipping_page = section.settings.policy_shipping_page %}
+  {% assign terms_page = section.settings.policy_terms_page %}
+
+  {% render 'longmouth-policy-tabs', about_page: about_page, privacy_page: privacy_page, shipping_page: shipping_page, terms_page: terms_page %}
+</section>
+
+{% schema %}
+{
+  "name": "Policy pages",
+  "settings": [
+    {
+      "type": "page",
+      "id": "policy_about_page",
+      "label": "About"
+    },
+    {
+      "type": "page",
+      "id": "policy_privacy_page",
+      "label": "Privacy policy"
+    },
+    {
+      "type": "page",
+      "id": "policy_shipping_page",
+      "label": "Shipping & returns"
+    },
+    {
+      "type": "page",
+      "id": "policy_terms_page",
+      "label": "Terms of service"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Policy pages"
+    }
+  ]
+}
+{% endschema %}

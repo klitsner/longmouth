@@ -1,0 +1,59 @@
+<div class="horizontal-scroll-wrapper" data-longmouth-gallery>
+  <div class="home__bg-gallery">
+    {% for block in section.blocks %}
+      {% if block.type == 'gallery_media' %}
+        {% if block.settings.media_type == 'image' and block.settings.image != blank %}
+          <div class="bg-gallery__item" {{ block.shopify_attributes }}>
+            <img
+              loading="eager"
+              decoding="async"
+              src="{{ block.settings.image | image_url: width: 2200 }}"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              alt="{{ block.settings.alt | escape }}"
+              class="gallery-item__image"
+            >
+          </div>
+        {% elsif block.settings.media_type == 'video' and block.settings.video != blank %}
+          <div class="bg-gallery__item" {{ block.shopify_attributes }}>
+            <div class="mov-wrapper-4">
+              <div class="bg-gallery__video w-background-video w-background-video-atom">
+                {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '2000x' }}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
+
+<div class="hor_scroll__mobile">
+  <div class="home__bg-gallery">
+    {% for block in section.blocks %}
+      {% if block.type == 'gallery_media' %}
+        {% if block.settings.media_type == 'image' and block.settings.image != blank %}
+          <div class="bg-gallery__item">
+            <img
+              loading="lazy"
+              decoding="async"
+              src="{{ block.settings.image | image_url: width: 1200 }}"
+              width="{{ block.settings.image.width }}"
+              height="{{ block.settings.image.height }}"
+              alt="{{ block.settings.alt | escape }}"
+              class="gallery-item__image"
+            >
+          </div>
+        {% elsif block.settings.media_type == 'video' and block.settings.video != blank %}
+          <div class="bg-gallery__item">
+            <div class="mov-wrapper-4">
+              <div class="bg-gallery__video w-background-video w-background-video-atom">
+                {{ block.settings.video | video_tag: autoplay: true, loop: true, muted: true, controls: false, image_size: '1200x' }}
+              </div>
+            </div>
+          </div>
+        {% endif %}
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>

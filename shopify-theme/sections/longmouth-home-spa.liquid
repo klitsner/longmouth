@@ -1,0 +1,323 @@
+<div class="page__wrap longmouth-theme" data-section-id="{{ section.id }}">
+  {% assign site_settings_block = section.blocks | where: 'type', 'site_settings' | first %}
+  {% assign menu_labels_block = section.blocks | where: 'type', 'menu_labels' | first %}
+  {% assign cookie_notice_block = section.blocks | where: 'type', 'cookie_notice' | first %}
+
+  {% assign site_title = site_settings_block.settings.site_title | default: 'longmouth.world' %}
+  {% assign default_collection = site_settings_block.settings.default_collection %}
+  {% assign featured_collection = collections[default_collection] %}
+
+  {% assign menu_label_shop = menu_labels_block.settings.menu_label_shop | default: 'shop' %}
+  {% assign menu_label_waitlist = menu_labels_block.settings.menu_label_waitlist | default: 'maillist' %}
+  {% assign menu_label_contact = menu_labels_block.settings.menu_label_contact | default: 'contact' %}
+  {% assign menu_label_policy = menu_labels_block.settings.menu_label_policy | default: 'other stuff' %}
+  {% assign menu_label_back_home = menu_labels_block.settings.menu_label_back_home | default: 'back to world' %}
+
+  {% assign cookie_notice_text = cookie_notice_block.settings.cookie_notice_text | default: 'This site uses cookies to improve your experience. By continuing to browse, you agree to our use of cookies.' %}
+  {% assign cookie_policy_url = cookie_notice_block.settings.cookie_policy_url %}
+
+  {% if featured_collection == blank %}
+    {% assign featured_collection = collections.all %}
+  {% endif %}
+
+  {% render 'longmouth-topbar', site_title: site_title %}
+  {% render 'longmouth-main', section: section, collection: featured_collection %}
+  {% render 'longmouth-footer', menu_label_shop: menu_label_shop, menu_label_waitlist: menu_label_waitlist, menu_label_contact: menu_label_contact, menu_label_policy: menu_label_policy, menu_label_back_home: menu_label_back_home %}
+
+  <div class="cookie-notice" id="cookieNotice">
+    {{ cookie_notice_text }}
+    {% if cookie_policy_url != blank %}
+      <a href="{{ cookie_policy_url }}">Privacy Policy</a>
+    {% endif %}
+    <button class="close-button" id="closeCookieNotice">×</button>
+  </div>
+</div>
+
+{% schema %}
+{
+  "name": "Longmouth Home SPA",
+  "settings": [],
+  "blocks": [
+    {
+      "type": "site_settings",
+      "name": "Site settings",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "site_title",
+          "label": "Site title",
+          "default": "longmouth.world"
+        },
+        {
+          "type": "collection",
+          "id": "default_collection",
+          "label": "Shop collection"
+        }
+      ]
+    },
+    {
+      "type": "homepage_display",
+      "name": "Homepage display",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "select",
+          "id": "menu_cover_mode",
+          "label": "Menu cover visibility",
+          "default": "hide_on_load",
+          "options": [
+            { "value": "hide_on_load", "label": "Hide on load" },
+            { "value": "hide", "label": "Hide" },
+            { "value": "show", "label": "Show" }
+          ]
+        },
+        {
+          "type": "checkbox",
+          "id": "card_draw_enabled",
+          "label": "Enable card draw module",
+          "default": true
+        },
+        {
+          "type": "checkbox",
+          "id": "hero_logo_enabled",
+          "label": "Show hero logo",
+          "default": true
+        },
+        {
+          "type": "image_picker",
+          "id": "hero_logo_image",
+          "label": "Hero logo image"
+        },
+        {
+          "type": "text",
+          "id": "hero_logo_alt",
+          "label": "Hero logo alt text",
+          "default": "Longmouth logo"
+        }
+      ]
+    },
+    {
+      "type": "menu_labels",
+      "name": "Menu labels",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "menu_label_shop",
+          "label": "Shop",
+          "default": "shop"
+        },
+        {
+          "type": "text",
+          "id": "menu_label_waitlist",
+          "label": "Waitlist",
+          "default": "maillist"
+        },
+        {
+          "type": "text",
+          "id": "menu_label_contact",
+          "label": "Contact",
+          "default": "contact"
+        },
+        {
+          "type": "text",
+          "id": "menu_label_policy",
+          "label": "Policy / other",
+          "default": "other stuff"
+        },
+        {
+          "type": "text",
+          "id": "menu_label_back_home",
+          "label": "Back home",
+          "default": "back to world"
+        }
+      ]
+    },
+    {
+      "type": "contact_settings",
+      "name": "Contact modal",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "contact_heading",
+          "label": "Heading",
+          "default": "hit us up"
+        },
+        {
+          "type": "text",
+          "id": "contact_email",
+          "label": "Email address",
+          "default": "emails@longmouth.world"
+        },
+        {
+          "type": "url",
+          "id": "youtube_url",
+          "label": "YouTube URL"
+        },
+        {
+          "type": "url",
+          "id": "tiktok_url",
+          "label": "TikTok URL"
+        },
+        {
+          "type": "url",
+          "id": "instagram_url",
+          "label": "Instagram URL"
+        }
+      ]
+    },
+    {
+      "type": "waitlist_settings",
+      "name": "Waitlist modal",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "waitlist_heading",
+          "label": "Heading",
+          "default": "sign up for the maillist"
+        },
+        {
+          "type": "text",
+          "id": "waitlist_policy_prefix",
+          "label": "Policy prefix text",
+          "default": "here's our"
+        },
+        {
+          "type": "text",
+          "id": "waitlist_policy_link_text",
+          "label": "Policy link text",
+          "default": "privacy policy"
+        }
+      ]
+    },
+    {
+      "type": "policy_pages",
+      "name": "Policy pages",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "page",
+          "id": "policy_about_page",
+          "label": "About"
+        },
+        {
+          "type": "page",
+          "id": "policy_privacy_page",
+          "label": "Privacy policy"
+        },
+        {
+          "type": "page",
+          "id": "policy_shipping_page",
+          "label": "Shipping & returns"
+        },
+        {
+          "type": "page",
+          "id": "policy_terms_page",
+          "label": "Terms of service"
+        }
+      ]
+    },
+    {
+      "type": "cookie_notice",
+      "name": "Cookie notice",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "text",
+          "id": "cookie_notice_text",
+          "label": "Notice text",
+          "default": "This site uses cookies to improve your experience. By continuing to browse, you agree to our use of cookies."
+        },
+        {
+          "type": "url",
+          "id": "cookie_policy_url",
+          "label": "Policy URL"
+        }
+      ]
+    },
+    {
+      "type": "menu_cover",
+      "name": "Menu cover",
+      "limit": 1,
+      "settings": [
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Cover image"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Cover image alt text",
+          "default": "Loading"
+        }
+      ]
+    },
+    {
+      "type": "gallery_media",
+      "name": "Gallery media",
+      "settings": [
+        {
+          "type": "select",
+          "id": "media_type",
+          "label": "Media type",
+          "default": "image",
+          "options": [
+            { "value": "image", "label": "Image" },
+            { "value": "video", "label": "Video" }
+          ]
+        },
+        {
+          "type": "image_picker",
+          "id": "image",
+          "label": "Image"
+        },
+        {
+          "type": "video",
+          "id": "video",
+          "label": "Video"
+        },
+        {
+          "type": "text",
+          "id": "alt",
+          "label": "Image alt text"
+        }
+      ]
+    }
+  ],
+  "presets": [
+    {
+      "name": "Longmouth Home SPA",
+      "blocks": [
+        {
+          "type": "site_settings"
+        },
+        {
+          "type": "homepage_display"
+        },
+        {
+          "type": "menu_labels"
+        },
+        {
+          "type": "contact_settings"
+        },
+        {
+          "type": "waitlist_settings"
+        },
+        {
+          "type": "policy_pages"
+        },
+        {
+          "type": "cookie_notice"
+        },
+        {
+          "type": "menu_cover"
+        }
+      ]
+    }
+  ]
+}
+{% endschema %}

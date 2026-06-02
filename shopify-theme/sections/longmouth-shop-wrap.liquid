@@ -1,0 +1,26 @@
+<div class="shop-wrap-section" data-view="shop" hidden>
+  {% assign featured_collection = collections[section.settings.collection] %}
+  {% if featured_collection == blank %}
+    {% assign featured_collection = collections.all %}
+  {% endif %}
+
+  {% render 'longmouth-shop-layer', collection: featured_collection %}
+</div>
+
+{% schema %}
+{
+  "name": "Shop wrap",
+  "settings": [
+    {
+      "type": "collection",
+      "id": "collection",
+      "label": "Collection"
+    }
+  ],
+  "presets": [
+    {
+      "name": "Shop wrap"
+    }
+  ]
+}
+{% endschema %}

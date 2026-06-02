@@ -1,0 +1,10 @@
+<div class="topbar__wrap">
+  <div id="home__button" class="longtitle__wrap">
+    <h1 id="long-text" class="longtitle">{{ site_title | default: 'longmouth.world' }}</h1>
+  </div>
+
+  <button type="button" class="cart__btn" data-longmouth-open-cart>
+    <span class="cart__btn-text">cart</span>
+    <span class="cart_count">{{ cart.item_count }}</span>
+  </button>
+</div>

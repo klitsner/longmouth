@@ -1,0 +1,103 @@
+[
+  {
+    "name": "theme_info",
+    "theme_name": "Longmouth SPA",
+    "theme_version": "0.1.0",
+    "theme_author": "Longmouth",
+    "theme_documentation_url": "https://shopify.dev/docs/themes",
+    "theme_support_url": "https://help.shopify.com"
+  },
+  {
+    "name": "Global settings",
+    "settings": [
+      {
+        "type": "header",
+        "content": "Contact + social"
+      },
+      {
+        "type": "text",
+        "id": "contact_heading",
+        "label": "Contact heading",
+        "default": "hit us up"
+      },
+      {
+        "type": "text",
+        "id": "contact_email",
+        "label": "Contact email",
+        "default": "emails@longmouth.world"
+      },
+      {
+        "type": "url",
+        "id": "youtube_url",
+        "label": "YouTube URL"
+      },
+      {
+        "type": "url",
+        "id": "tiktok_url",
+        "label": "TikTok URL"
+      },
+      {
+        "type": "url",
+        "id": "instagram_url",
+        "label": "Instagram URL"
+      },
+      {
+        "type": "header",
+        "content": "Privacy + waitlist"
+      },
+      {
+        "type": "text",
+        "id": "waitlist_heading",
+        "label": "Waitlist heading",
+        "default": "sign up for the maillist"
+      },
+      {
+        "type": "text",
+        "id": "waitlist_policy_prefix",
+        "label": "Waitlist policy prefix",
+        "default": "here's our"
+      },
+      {
+        "type": "text",
+        "id": "waitlist_policy_link_text",
+        "label": "Waitlist policy link text",
+        "default": "privacy policy"
+      },
+      {
+        "type": "text",
+        "id": "cookie_notice_text",
+        "label": "Cookie notice text",
+        "default": "This site uses cookies to improve your experience. By continuing to browse, you agree to our use of cookies."
+      },
+      {
+        "type": "url",
+        "id": "cookie_policy_url",
+        "label": "Cookie policy URL"
+      }
+    ]
+  },
+  {
+    "name": "Typography",
+    "settings": [
+      {
+        "type": "paragraph",
+        "content": "Upload a font file to Shopify Content > Files, then paste the file URL here. Leave blank to use the bundled Longmouth font files."
+      },
+      {
+        "type": "url",
+        "id": "font_p22_url",
+        "label": "Body font file URL"
+      },
+      {
+        "type": "url",
+        "id": "font_gofardagothic_url",
+        "label": "Display font file URL"
+      },
+      {
+        "type": "url",
+        "id": "font_gofardagothic_distort_url",
+        "label": "Distort font file URL"
+      }
+    ]
+  }
+]

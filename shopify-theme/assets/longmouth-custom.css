@@ -1,0 +1,227 @@
+/**
+ * longmouth-custom.css
+ * All custom inline styles extracted from index.html, organised by section.
+ *
+ * Load order: after longmouth.webflow.shared.dc2f03922.css
+ */
+
+/* =====================================================
+   BASE / GLOBAL
+   Originally in <head> and .global__style
+   ===================================================== */
+
+/* Hide scrollbars globally */
+html::-webkit-scrollbar,
+body::-webkit-scrollbar {
+  display: none;
+}
+
+/* iOS Chrome viewport fix */
+@supports (-webkit-overflow-scrolling: touch) {
+  @media screen and (max-width: 767px) {
+    body {
+      -webkit-text-size-adjust: none;
+      min-height: 100vh;
+      max-width: 100vw;
+      overflow-x: hidden;
+    }
+  }
+}
+
+/* Force border-radius to 0 for all elements except the card button */
+*:not(.card-button) {
+  border-radius: 0 !important;
+}
+
+/* Hide all scrollbars universally */
+* {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+*::-webkit-scrollbar {
+  display: none;
+}
+
+/* =====================================================
+   SHOPIFY CART ITEM — LOADING STATE
+   Originally in <head> before </head>
+   ===================================================== */
+
+cart-item.loading > * {
+  animation: none !important;
+  opacity: 1 !important;
+  filter: none !important;
+  pointer-events: auto !important;
+}
+
+cart-item.loading > *::before {
+  display: none !important;
+}
+
+/* =====================================================
+   TOG SPINNER (menu cover loading animation)
+  Originally in .is-hidden w-embed inside #menu__loader-overlay
+   ===================================================== */
+
+.tog-spinner__image {
+  width: 150px;
+  aspect-ratio: 1;
+  display: inline-block;
+  animation: spin 4s linear infinite;
+  transform-origin: center;
+}
+
+@keyframes spin {
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* =====================================================
+   SHOPIFY PRIVACY / CONSENT BANNER CUSTOMISATION
+   Originally in .custom-css w-embed inside .sm-cookie-preferences
+   ===================================================== */
+
+/* Whole Banner */
+body #shopify-pc__banner {
+  box-shadow: none;
+}
+
+/* Dialog */
+body #shopify-pc__prefs__dialog {
+  box-shadow: none;
+}
+
+/* Add further overrides here as needed:
+   body #shopify-pc__banner__body-title,
+   body #shopify-pc__prefs__header-title { }
+   body #shopify-pc__banner__btn-accept,
+   body #shopify-pc__prefs__header-accept { }
+   etc.
+*/
+
+/* =====================================================
+   SHOP — PRODUCT DETAILS + MARQUEE
+   Originally in .style__shop w-embed
+   ===================================================== */
+
+/* Hide browser spinner on quantity input */
+.atc__quantity-field::-webkit-outer-spin-button,
+.atc__quantity-field::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Slider dots */
+.w-slider-dot.w-active {
+  background-color: #000000;
+}
+
+.w-slider-dot {
+  background-color: #ddd;
+  width: 0.2em;
+  height: 0.2em;
+  margin: 0;
+}
+
+/* Mobile marquee for product description */
+@media (max-width: 767px) {
+  .product-detail__wrap {
+    width: 100%;
+    white-space: nowrap;
+    position: relative;
+  }
+
+  .product-details__description {
+    padding-left: 100%;
+    touch-action: manipulation;
+    white-space: nowrap;
+    animation: scroll-marquee 15s linear infinite;
+  }
+
+  @keyframes scroll-marquee {
+    0% {
+      transform: translateX(0%);
+    }
+    100% {
+      transform: translateX(-100%);
+    }
+  }
+
+  .marquee-paused {
+    animation-play-state: paused !important;
+  }
+}
+
+/* =====================================================
+   HOME — HORIZONTAL SCROLL + MARQUEE TICKER
+   Originally in .styles__home w-embed
+   ===================================================== */
+
+.horizontal-scroll-wrapper {
+  scrollbar-width: none;
+  -ms-overflow-style: none;
+}
+
+.horizontal-scroll-wrapper::-webkit-scrollbar {
+  display: none;
+}
+
+.marquee__wrapper {
+  animation: scrollMarquee 15s linear infinite;
+}
+
+@keyframes scrollMarquee {
+  0% {
+    transform: translateX(0%);
+  }
+  100% {
+    transform: translateX(-100%);
+  }
+}
+
+/* Hide Smootify banner element entirely */
+smootify-banner {
+  display: none !important;
+  visibility: hidden !important;
+  opacity: 0 !important;
+  height: 0 !important;
+  width: 0 !important;
+  position: absolute !important;
+  overflow: hidden !important;
+}
+
+/* Menu item hover effect */
+.menu__item:hover .menu__item-text {
+  opacity: 0;
+}
+
+.menu__item-text-hvr {
+  opacity: 0;
+}
+
+.menu__item:hover .menu__item-text-hvr {
+  opacity: 1;
+}
+
+/* =====================================================
+   SHOPIFY PRIVACY BANNER — INITIAL HIDDEN STATE
+   Originally in .shopify-privacy-banner-script w-embed
+   Shown programmatically after Webflow restart / page load.
+   TODO (Shopify): Remove this if using Shopify's native banner
+     visibility management instead.
+   ===================================================== */
+
+#shopify-pc-banner {
+  opacity: 0 !important;
+  pointer-events: none !important;
+  visibility: hidden !important;
+}
+
+/* Keep homepage gallery behavior consistent with Shopify theme overrides. */
+.longmouth-theme .home__wrap {
+  overflow: visible;
+}

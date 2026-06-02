@@ -1,0 +1,92 @@
+<div class="main__wrap" data-longmouth-main>
+  {% assign menu_cover_mode = section.settings.menu_cover_mode | default: 'hide_on_load' %}
+  {% assign card_draw_enabled = section.settings.card_draw_enabled %}
+  {% assign hero_logo_enabled = section.settings.hero_logo_enabled %}
+  {% assign hero_logo_image = section.settings.hero_logo_image %}
+  {% assign hero_logo_alt = section.settings.hero_logo_alt | default: shop.name %}
+  <div
+    id="menu__loader-overlay"
+    class="menu__loader-overlay"
+    data-menu-loader-mode="{{ menu_cover_mode }}"
+    {% if menu_cover_mode == 'hide' %}hidden{% endif %}
+  >
+    {% if section.settings.menu_cover_image != blank %}
+      <img
+        class="tog-spinner__image"
+        loading="eager"
+        decoding="async"
+        src="{{ section.settings.menu_cover_image | image_url: width: 600 }}"
+        width="{{ section.settings.menu_cover_image.width }}"
+        height="{{ section.settings.menu_cover_image.height }}"
+        alt="{{ section.settings.menu_cover_alt | default: 'Loading' | escape }}"
+      >
+    {% else %}
+      <div class="tog-spinner"></div>
+    {% endif %}
+  </div>
+
+  <section class="home__wrap" data-view="home" data-view-root>
+    {% render 'longmouth-home-gallery', section: section %}
+
+    {% if hero_logo_enabled and hero_logo_image != blank %}
+      <div class="hero-logo__wrap">
+        <img
+          src="{{ hero_logo_image | image_url: width: 1200 }}"
+          loading="lazy"
+          width="{{ hero_logo_image.width }}"
+          height="{{ hero_logo_image.height }}"
+          alt="{{ hero_logo_alt | escape }}"
+          class="hero-logo__image"
+        >
+      </div>
+    {% elsif hero_logo_enabled %}
+      <div class="hero-logo__wrap">
+        <img
+          src="{{ 'long-mouth_logo_lockup_new_500px-06-202.svg' | asset_url }}"
+          loading="lazy"
+          width="500"
+          height="368"
+          alt="{{ hero_logo_alt | escape }}"
+          class="hero-logo__image"
+        >
+      </div>
+    {% endif %}
+
+    {% if card_draw_enabled %}
+      <div class="card-draw__wrap">
+        <canvas id="cardCanvas" class="card-canvas"></canvas>
+        <a href="#" class="card-button w-button">draw</a>
+        <div id="sol-ring-price" class="sol-ring-price-test"></div>
+      </div>
+    {% endif %}
+  </section>
+
+  <div class="modals__wrapper">
+    <div id="contact-modal" class="modal-contact" hidden>
+      <h1>hit us up</h1>
+      <div class="goth-text black">
+        <a href="mailto:emails@longmouth.world" class="goth-link">emails@longmouth.world</a>
+      </div>
+
+      <div class="socials__container">
+        <a href="#" target="_blank" rel="noopener" class="w-inline-block">YouTube</a>
+        <a href="#" target="_blank" rel="noopener" class="w-inline-block">TikTok</a>
+        <a href="#" target="_blank" rel="noopener" class="w-inline-block">Instagram</a>
+      </div>
+    </div>
+
+    <div id="waitlist-modal" class="modal-waitlist" hidden>
+      <h1 class="default">sign up for the maillist</h1>
+      {% form 'customer', class: 'form' %}
+        <input type="hidden" name="contact[tags]" value="waitlist">
+        <label for="WaitlistEmail" class="field-label">email address</label>
+        <input id="WaitlistEmail" type="email" name="contact[email]" required class="text-field-2 w-input" placeholder="yawgmoth@email.com">
+        <input type="submit" class="button w-button" value="submit">
+        <label class="readpolicy">
+          here's our
+          <a href="#" class="link-2">privacy policy</a>
+        </label>
+      {% endform %}
+    </div>
+  </div>
+</div>

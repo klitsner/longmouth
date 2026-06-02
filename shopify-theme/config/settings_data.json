@@ -1,0 +1,151 @@
+/*
+ * ------------------------------------------------------------
+ * IMPORTANT: The contents of this file are auto-generated.
+ *
+ * This file may be updated by the Shopify admin theme editor
+ * or related systems. Please exercise caution as any changes
+ * made to this file may be overwritten.
+ * ------------------------------------------------------------
+ */
+{
+  "current": {
+    "contact_heading": "hit us up",
+    "contact_email": "emails@longmouth.world",
+    "youtube_url": "",
+    "tiktok_url": "",
+    "instagram_url": "",
+    "waitlist_heading": "sign up for the maillist",
+    "waitlist_policy_prefix": "here's our",
+    "waitlist_policy_link_text": "privacy policy",
+    "cookie_notice_text": "This site uses cookies to improve your experience. By continuing to browse, you agree to our use of cookies.",
+    "cookie_policy_url": "",
+    "font_p22_url": "",
+    "font_gofardagothic_url": "",
+    "font_gofardagothic_distort_url": "",
+    "order": [
+      "site_settings",
+      "topbar",
+      "main",
+      "footer",
+      "shop",
+      "policy"
+    ],
+    "sections": {
+      "longmouth-site-settings": {
+        "type": "longmouth-site-settings",
+        "settings": {
+          "site_title": "longmouth.world",
+          "menu_label_shop": "shop",
+          "menu_label_waitlist": "maillist",
+          "menu_label_contact": "contact",
+          "menu_label_policy": "other stuff",
+          "menu_label_back_home": "back to world"
+        }
+      },
+      "longmouth-topbar": {
+        "type": "longmouth-topbar",
+        "settings": {}
+      },
+      "longmouth-main": {
+        "type": "longmouth-main",
+        "blocks": {
+          "gallery_media_AaKYh8": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "video",
+              "video": "shopify://files/videos/tag-fow-web-fixed_mp4.mp4",
+              "alt": ""
+            }
+          },
+          "gallery_media_FiKj8Y": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "image",
+              "image": "shopify://shop_images/miracle-grow_hand-pose_working-202-20-1-p-1080.webp",
+              "alt": ""
+            }
+          },
+          "gallery_media_Jt9wLp": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "image",
+              "image": "shopify://shop_images/artboard-204_drop-2_home-p-1080.webp",
+              "alt": ""
+            }
+          },
+          "gallery_media_ygNcLt": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "image",
+              "image": "shopify://shop_images/artboard-202_drop-2_home-20-1-p-1080.webp",
+              "alt": ""
+            }
+          },
+          "gallery_media_QnU6FK": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "video",
+              "video": "shopify://files/videos/shortnicl_mp4.mp4",
+              "alt": ""
+            }
+          },
+          "gallery_media_JJEHkg": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "image",
+              "image": "shopify://shop_images/69b812e5d4c6609957b56c1b_artboard-201_drop-2_home-20copy-20-1-p-1080.webp",
+              "alt": ""
+            }
+          },
+          "gallery_media_9fpdRn": {
+            "type": "gallery_media",
+            "settings": {
+              "media_type": "image",
+              "image": "shopify://shop_images/69b8116be43f92e18ea887a6_artboard-206_drop-2_home-20copy-p-1080.webp",
+              "alt": ""
+            }
+          }
+        },
+        "block_order": [
+          "gallery_media_AaKYh8",
+          "gallery_media_FiKj8Y",
+          "gallery_media_Jt9wLp",
+          "gallery_media_ygNcLt",
+          "gallery_media_QnU6FK",
+          "gallery_media_JJEHkg",
+          "gallery_media_9fpdRn"
+        ],
+        "settings": {
+          "menu_cover_mode": "hide",
+          "menu_cover_image": "shopify://shop_images/68801253dda0f971004a968f_685f2dc23264b85b2ea57bd8_tog_spin_bg.svg",
+          "menu_cover_alt": "Loading",
+          "card_draw_enabled": true,
+          "hero_logo_enabled": true,
+          "hero_logo_image": "shopify://shop_images/68304c56b6eeeee20528c26a_long-mouth_logo_lockup_new_500px-06_2.svg",
+          "hero_logo_alt": "Longmouth logo"
+        }
+      },
+      "longmouth-footer": {
+        "type": "longmouth-footer",
+        "settings": {}
+      },
+      "longmouth-shop-wrap": {
+        "type": "longmouth-shop-wrap",
+        "settings": {
+          "collection": ""
+        }
+      },
+      "longmouth-policy-pages": {
+        "type": "longmouth-policy-pages",
+        "settings": {
+          "policy_about_page": "",
+          "policy_privacy_page": "",
+          "policy_shipping_page": "",
+          "policy_terms_page": ""
+        }
+      }
+    },
+    "content_for_index": []
+  },
+  "presets": {}
+}

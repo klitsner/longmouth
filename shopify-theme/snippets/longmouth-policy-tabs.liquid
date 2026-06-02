@@ -1,0 +1,50 @@
+<div class="policy__wrap scroll-exempt" data-longmouth-policy>
+  <div class="tabs-menu">
+    <button type="button" class="tab__link is-active" data-policy-tab="about">about</button>
+    <button type="button" class="tab__link" data-policy-tab="privacy">privacy policy</button>
+    <button type="button" class="tab__link" data-policy-tab="shipping">shipping & returns</button>
+    <button type="button" class="tab__link" data-policy-tab="terms">terms of service</button>
+  </div>
+
+  <div class="policy-tab-content">
+    <div class="policy-pane is-active" data-policy-pane="about">
+      {% if about_page != blank %}
+        <h1 class="boring__heading">{{ about_page.title }}</h1>
+        <div class="boring__text rte">{{ about_page.content }}</div>
+      {% else %}
+        <h1 class="boring__heading">about</h1>
+        <div class="boring__text">Assign an About page in the Policy pages settings block.</div>
+      {% endif %}
+    </div>
+
+    <div class="policy-pane" data-policy-pane="privacy">
+      {% if privacy_page != blank %}
+        <h1 class="boring__heading">{{ privacy_page.title }}</h1>
+        <div class="boring__text rte">{{ privacy_page.content }}</div>
+      {% else %}
+        <h1 class="boring__heading">privacy policy</h1>
+        <div class="boring__text">Assign a Privacy Policy page in the Policy pages settings block.</div>
+      {% endif %}
+    </div>
+
+    <div class="policy-pane" data-policy-pane="shipping">
+      {% if shipping_page != blank %}
+        <h1 class="boring__heading">{{ shipping_page.title }}</h1>
+        <div class="boring__text rte">{{ shipping_page.content }}</div>
+      {% else %}
+        <h1 class="boring__heading">shipping & returns</h1>
+        <div class="boring__text">Assign a Shipping page in the Policy pages settings block.</div>
+      {% endif %}
+    </div>
+
+    <div class="policy-pane" data-policy-pane="terms">
+      {% if terms_page != blank %}
+        <h1 class="boring__heading">{{ terms_page.title }}</h1>
+        <div class="boring__text rte">{{ terms_page.content }}</div>
+      {% else %}
+        <h1 class="boring__heading">terms of service</h1>
+        <div class="boring__text">Assign a Terms page in the Policy pages settings block.</div>
+      {% endif %}
+    </div>
+  </div>
+</div>

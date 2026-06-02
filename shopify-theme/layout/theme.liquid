@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="{{ request.locale.iso_code }}">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <meta name="theme-color" content="#000000">
+    <title>{{ page_title }}{% if current_tags %} - {{ current_tags | join: ', ' }}{% endif %}{% if current_page != 1 %} - Page {{ current_page }}{% endif %}{% unless page_title contains shop.name %} - {{ shop.name }}{% endunless %}</title>
+    {{ content_for_header }}
+
+    {{ 'longmouth-webflow-base.css' | asset_url | stylesheet_tag }}
+    {{ 'longmouth-custom.css' | asset_url | stylesheet_tag }}
+    {{ 'longmouth-theme.css' | asset_url | stylesheet_tag }}
+
+    {% assign font_p22_url = settings.font_p22_url %}
+    {% if font_p22_url == blank %}
+      {% assign font_p22_url = 'p22-20civilite-20pro-20no-2030.otf' | asset_url %}
+    {% endif %}
+    {% assign font_gofardagothic_url = settings.font_gofardagothic_url %}
+    {% if font_gofardagothic_url == blank %}
+      {% assign font_gofardagothic_url = 'gofardagothic-regular.otf' | asset_url %}
+    {% endif %}
+    {% assign font_gofardagothic_distort_url = settings.font_gofardagothic_distort_url %}
+    {% if font_gofardagothic_distort_url == blank %}
+      {% assign font_gofardagothic_distort_url = 'gofardagothic-distort.otf' | asset_url %}
+    {% endif %}
+    <style>
+      @font-face {
+        font-family: "P 22 Civilite Pro No 30";
+        src: url({{ font_p22_url | json }});
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Gofardagothic;
+        src: url({{ font_gofardagothic_url | json }});
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+
+      @font-face {
+        font-family: Gofardagothic Distort;
+        src: url({{ font_gofardagothic_distort_url | json }});
+        font-weight: 400;
+        font-style: normal;
+        font-display: swap;
+      }
+    </style>
+  </head>
+  <body class="template-{{ template.name | handle }}">
+    {{ content_for_layout }}
+
+    <script src="{{ 'longmouth-theme.js' | asset_url }}" defer></script>
+    <script src="{{ 'longmouth-card-draw.js' | asset_url }}" defer></script>
+    <script src="{{ 'longmouth-glitch.js' | asset_url }}" defer></script>
+    <script src="{{ 'longmouth-longtext.js' | asset_url }}" defer></script>
+    <script src="{{ 'longmouth-sol-ring-price.js' | asset_url }}" defer></script>
+    <script src="{{ 'longmouth-esc-key.js' | asset_url }}" defer></script>
+  </body>
+</html>
