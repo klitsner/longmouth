@@ -1,10 +1,15 @@
-<div class="shop-wrap-section" data-view="shop" hidden>
-  {% assign featured_collection = collections[section.settings.collection] %}
-  {% if featured_collection == blank %}
-    {% assign featured_collection = collections.all %}
+<div
+  class="shop-wrap-section"
+  data-view="shop"
+  hidden
+  style="--product-gallery-dot-size: {{ section.settings.gallery_dot_size }}px; --product-gallery-dot-radius: {% if section.settings.gallery_dot_shape == 'square' %}0px{% elsif section.settings.gallery_dot_shape == 'rounded' %}4px{% else %}999px{% endif %}; --product-gallery-dot-color: {{ section.settings.gallery_dot_color }}; --product-gallery-dot-active-color: {{ section.settings.gallery_dot_active_color }};"
+>
+  {% assign featured_collection = blank %}
+  {% if section.settings.collection != blank %}
+    {% assign featured_collection = collections[section.settings.collection] %}
   {% endif %}
 
-  {% render 'longmouth-shop-layer', collection: featured_collection %}
+  {% render 'longmouth-shop-layer', collection: featured_collection, product_blocks: section.blocks %}
 </div>
 
 {% schema %}
@@ -15,6 +20,61 @@
       "type": "collection",
       "id": "collection",
       "label": "Collection"
+    },
+    {
+      "type": "range",
+      "id": "gallery_dot_size",
+      "label": "Gallery dot size",
+      "min": 4,
+      "max": 24,
+      "step": 1,
+      "default": 8,
+      "unit": "px"
+    },
+    {
+      "type": "select",
+      "id": "gallery_dot_shape",
+      "label": "Gallery dot shape",
+      "default": "pill",
+      "options": [
+        {
+          "value": "pill",
+          "label": "Round"
+        },
+        {
+          "value": "rounded",
+          "label": "Rounded square"
+        },
+        {
+          "value": "square",
+          "label": "Square"
+        }
+      ]
+    },
+    {
+      "type": "color",
+      "id": "gallery_dot_color",
+      "label": "Gallery dot color",
+      "default": "#bbbbbb"
+    },
+    {
+      "type": "color",
+      "id": "gallery_dot_active_color",
+      "label": "Active gallery dot color",
+      "default": "#111111"
+    }
+  ],
+  "blocks": [
+    {
+      "type": "product",
+      "name": "Product",
+      "settings": [
+        {
+          "type": "product",
+          "id": "product",
+          "label": "Product"
+        }
+      ]
     }
   ],
   "presets": [

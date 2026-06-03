@@ -132,16 +132,20 @@
       "longmouth-shop-wrap": {
         "type": "longmouth-shop-wrap",
         "settings": {
-          "collection": ""
+          "collection": "active-products",
+          "gallery_dot_size": 8,
+          "gallery_dot_shape": "pill",
+          "gallery_dot_color": "#bbbbbb",
+          "gallery_dot_active_color": "#111111"
         }
       },
       "longmouth-policy-pages": {
         "type": "longmouth-policy-pages",
         "settings": {
-          "policy_about_page": "",
-          "policy_privacy_page": "",
-          "policy_shipping_page": "",
-          "policy_terms_page": ""
+          "policy_about_page": "about",
+          "policy_privacy_page": "privacy-policy",
+          "policy_shipping_page": "shipping-returns",
+          "policy_terms_page": "terms-of-service"
         }
       }
     },

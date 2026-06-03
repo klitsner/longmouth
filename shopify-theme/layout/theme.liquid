@@ -53,6 +53,7 @@
     {{ content_for_layout }}
 
     <script src="{{ 'longmouth-theme.js' | asset_url }}" defer></script>
+    <script>window.lmShop={currency:{{ shop.currency | json }},locale:{{ request.locale.iso_code | json }},moneyFormat:{{ shop.money_format | json }}};</script>
     <script src="{{ 'longmouth-card-draw.js' | asset_url }}" defer></script>
     <script src="{{ 'longmouth-glitch.js' | asset_url }}" defer></script>
     <script src="{{ 'longmouth-longtext.js' | asset_url }}" defer></script>

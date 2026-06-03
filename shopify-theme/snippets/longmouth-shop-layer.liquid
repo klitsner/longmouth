@@ -1,28 +1,117 @@
-<div class="shop__wrap" data-view="shop" hidden>
+{% assign source_label = 'All products' %}
+{% assign source_product_count = 0 %}
+{% if collection != blank %}
+  {% assign source_label = collection.title %}
+  {% assign source_product_count = collection.products_count %}
+{% elsif product_blocks.size > 0 %}
+  {% assign source_label = 'Manual products' %}
+  {% for block in product_blocks %}
+    {% if block.settings.product != blank %}
+      {% assign source_product_count = source_product_count | plus: 1 %}
+    {% endif %}
+  {% endfor %}
+{% else %}
+  {% assign source_product_count = collections.all.products_count %}
+{% endif %}
+
+<div class="shop__wrap" data-view="shop" data-source-label="{{ source_label | escape }}" data-source-product-count="{{ source_product_count }}" hidden>
   <div class="product-list__wrap">
-    <div class="shop__filter-wrap">
-      <label for="tagFilter" class="field-label">filter</label>
-      <select id="tagFilter" class="text-field-2">
-        <option value="all">all</option>
-        {% assign tag_values = '' %}
-        {% for product in collection.products %}
-          {% for tag in product.tags %}
-            {% assign tag_handle = tag | downcase %}
-            {% unless tag_values contains tag_handle %}
-              {% assign tag_values = tag_values | append: tag_handle | append: '|' %}
-              <option value="{{ tag_handle }}">{{ tag }}</option>
-            {% endunless %}
-          {% endfor %}
-        {% endfor %}
-      </select>
+    <div class="product-list__filter-form w-form">
+      <form id="wf-form-Product-Filter" name="wf-form-Product-Filter" method="get" class="product-list__filter">
+        <label for="tagFilter" class="filter-label">filter by:</label>
+        <select id="tagFilter" name="Product-Filter" class="filter-select w-select">
+          <option value="all">all</option>
+          {% assign tag_values = '|' %}
+          {% if collection != blank %}
+            {% paginate collection.products by 250 %}
+              {% for product in collection.products %}
+                {% for tag in product.tags %}
+                  {% assign tag_handle = tag | downcase %}
+                  {% assign tag_token = '|' | append: tag_handle | append: '|' %}
+                  {% unless tag_values contains tag_token %}
+                    {% assign tag_values = tag_values | append: tag_handle | append: '|' %}
+                    <option value="{{ tag_handle }}">{{ tag }}</option>
+                  {% endunless %}
+                {% endfor %}
+              {% endfor %}
+            {% endpaginate %}
+          {% elsif product_blocks.size > 0 %}
+            {% for block in product_blocks %}
+              {% assign product = block.settings.product %}
+              {% if product == blank %}
+                {% continue %}
+              {% endif %}
+              {% for tag in product.tags %}
+                {% assign tag_handle = tag | downcase %}
+                {% assign tag_token = '|' | append: tag_handle | append: '|' %}
+                {% unless tag_values contains tag_token %}
+                  {% assign tag_values = tag_values | append: tag_handle | append: '|' %}
+                  <option value="{{ tag_handle }}">{{ tag }}</option>
+                {% endunless %}
+              {% endfor %}
+            {% endfor %}
+          {% else %}
+            {% paginate collections.all.products by 250 %}
+              {% for product in collections.all.products %}
+                {% for tag in product.tags %}
+                  {% assign tag_handle = tag | downcase %}
+                  {% assign tag_token = '|' | append: tag_handle | append: '|' %}
+                  {% unless tag_values contains tag_token %}
+                    {% assign tag_values = tag_values | append: tag_handle | append: '|' %}
+                    <option value="{{ tag_handle }}">{{ tag }}</option>
+                  {% endunless %}
+                {% endfor %}
+              {% endfor %}
+            {% endpaginate %}
+          {% endif %}
+        </select>
+      </form>
+
+      <div class="w-form-done"><div>Thank you! Your submission has been received!</div></div>
+      <div class="w-form-fail"><div>Oops! Something went wrong while submitting the form.</div></div>
     </div>
 
-    <div class="product-list">
-      {% for product in collection.products %}
-        {% render 'longmouth-product-card', product: product %}
-      {% else %}
-        <p>No products found in this collection.</p>
-      {% endfor %}
+    <div class="product-list scroll-exempt">
+      <div class="w-dyn-list">
+        <div role="list" class="product-grid__2-col w-dyn-items">
+          {% if collection != blank %}
+            {% paginate collection.products by 250 %}
+              {% for product in collection.products %}
+                <div role="listitem" class="w-dyn-item">
+                  {% render 'longmouth-product-card', product: product %}
+                </div>
+              {% else %}
+                <p>No products found in this collection.</p>
+              {% endfor %}
+            {% endpaginate %}
+          {% elsif product_blocks.size > 0 %}
+            {% assign rendered_products = 0 %}
+            {% for block in product_blocks %}
+              {% assign product = block.settings.product %}
+              {% if product == blank %}
+                {% continue %}
+              {% endif %}
+              {% assign rendered_products = rendered_products | plus: 1 %}
+              <div role="listitem" class="w-dyn-item" {{ block.shopify_attributes }}>
+                {% render 'longmouth-product-card', product: product %}
+              </div>
+            {% endfor %}
+            {% if rendered_products == 0 %}
+              <p>Add product blocks in the theme editor to populate the shop list.</p>
+            {% endif %}
+          {% else %}
+            {% paginate collections.all.products by 250 %}
+              {% for product in collections.all.products %}
+                <div role="listitem" class="w-dyn-item">
+                  {% render 'longmouth-product-card', product: product %}
+                </div>
+              {% else %}
+                <p>No products available yet.</p>
+              {% endfor %}
+            {% endpaginate %}
+          {% endif %}
+        </div>
+      </div>
     </div>
   </div>
 

@@ -4,6 +4,12 @@
   {% assign hero_logo_enabled = section.settings.hero_logo_enabled %}
   {% assign hero_logo_image = section.settings.hero_logo_image %}
   {% assign hero_logo_alt = section.settings.hero_logo_alt | default: shop.name %}
+  <script>
+    window.lmShop = window.lmShop || {};
+    {% if section.settings.menu_cover_image != blank %}
+    window.lmShop.loaderImageUrl = {{ section.settings.menu_cover_image | image_url: width: 300 | json }};
+    {% endif %}
+  </script>
   <div
     id="menu__loader-overlay"
     class="menu__loader-overlay"
@@ -26,6 +32,9 @@
   </div>
 
   <section class="home__wrap" data-view="home" data-view-root>
+    <div class="home__spew">
+      <div id="glitch-log" class="home__spew-text"></div>
+    </div>
     {% render 'longmouth-home-gallery', section: section %}
 
     {% if hero_logo_enabled and hero_logo_image != blank %}
@@ -63,6 +72,9 @@
 
   <div class="modals__wrapper">
     <div id="contact-modal" class="modal-contact" hidden>
+      <button type="button" class="close-btn__wrapper" data-close-modal="contact-modal" aria-label="Close contact modal">
+        <img src="{{ 'close.svg' | asset_url }}" loading="eager" alt="close" class="close-btn__x">
+      </button>
       <h1>hit us up</h1>
       <div class="goth-text black">
         <a href="mailto:emails@longmouth.world" class="goth-link">emails@longmouth.world</a>
@@ -76,6 +88,9 @@
     </div>
 
     <div id="waitlist-modal" class="modal-waitlist" hidden>
+      <button type="button" class="close-btn__wrapper" data-close-modal="waitlist-modal" aria-label="Close waitlist modal">
+        <img src="{{ 'close.svg' | asset_url }}" loading="eager" alt="close" class="close-btn__x">
+      </button>
       <h1 class="default">sign up for the maillist</h1>
       {% form 'customer', class: 'form' %}
         <input type="hidden" name="contact[tags]" value="waitlist">

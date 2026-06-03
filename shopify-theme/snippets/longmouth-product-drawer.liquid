@@ -1,6 +1,8 @@
-<aside id="product__panel" class="product__wrap" aria-hidden="true">
+<aside id="product__panel" class="product__wrap" aria-hidden="true" data-close-icon-url="{{ 'close.svg' | asset_url }}" data-loader-url="{{ 'tog_spin_.svg' | asset_url }}">
   <div class="product__panel-inner">
-    <button type="button" id="productDrawerClose" class="menu__item outline-top-side">back to shop</button>
+    <button type="button" id="productDrawerClose" class="close-btn__wrapper" aria-label="Close product panel">
+      <img src="{{ 'close.svg' | asset_url }}" loading="eager" alt="close" class="close-btn__x">
+    </button>
     <div id="longmouth-product-drawer-content" class="product__detail-item"></div>
   </div>
 </aside>
