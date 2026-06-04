@@ -234,6 +234,69 @@ document.addEventListener("DOMContentLoaded", function () {
     modal.classList.add("show");
   }
 
+  function initDraggableModals() {
+    Array.from(modals).forEach((modal) => {
+      let activePointerId = null;
+      let startX = 0;
+      let startY = 0;
+      let originLeft = 0;
+      let originTop = 0;
+
+      modal.style.cursor = "grab";
+
+      const onPointerMove = (event) => {
+        if (event.pointerId !== activePointerId) return;
+
+        const deltaX = event.clientX - startX;
+        const deltaY = event.clientY - startY;
+
+        modal.style.left = `${originLeft + deltaX}px`;
+        modal.style.top = `${originTop + deltaY}px`;
+        modal.style.right = "auto";
+        modal.style.bottom = "auto";
+      };
+
+      const endDrag = (event) => {
+        if (activePointerId === null) return;
+        if (event.pointerId !== activePointerId) return;
+
+        activePointerId = null;
+        modal.style.cursor = "grab";
+        window.removeEventListener("pointermove", onPointerMove);
+        window.removeEventListener("pointerup", endDrag);
+        window.removeEventListener("pointercancel", endDrag);
+      };
+
+      modal.addEventListener("pointerdown", (event) => {
+        if (event.button !== 0) return;
+        if (event.target.closest("a, button, input, textarea, select, option, label")) return;
+
+        activePointerId = event.pointerId;
+        startX = event.clientX;
+        startY = event.clientY;
+
+        const rect = modal.getBoundingClientRect();
+        originLeft = rect.left;
+        originTop = rect.top;
+
+        modal.style.left = `${originLeft}px`;
+        modal.style.top = `${originTop}px`;
+        modal.style.right = "auto";
+        modal.style.bottom = "auto";
+        modal.style.cursor = "grabbing";
+
+        if (typeof modal.setPointerCapture === "function") {
+          modal.setPointerCapture(activePointerId);
+        }
+
+        window.addEventListener("pointermove", onPointerMove);
+        window.addEventListener("pointerup", endDrag);
+        window.addEventListener("pointercancel", endDrag);
+        event.preventDefault();
+      });
+    });
+  }
+
   function closeProductDrawer() {
     if (!productPanel) return;
     productPanel.classList.remove("active");
@@ -812,7 +875,9 @@ document.addEventListener("DOMContentLoaded", function () {
 
     policyTabButtons.forEach((button) => {
       const tab = (button.getAttribute("data-policy-tab") || "").toLowerCase();
-      button.classList.toggle("is-active", tab === selected);
+      const isActive = tab === selected;
+      button.classList.toggle("is-active", isActive);
+      button.classList.toggle("w--current", isActive);
     });
 
     policyTabPanes.forEach((pane) => {
@@ -1036,6 +1101,8 @@ document.addEventListener("DOMContentLoaded", function () {
       applyRouteState({ view: target || "home", modals: getCurrentModalIds() });
     });
   });
+
+  initDraggableModals();
 
   if (homeButtonWrap) {
     homeButtonWrap.addEventListener("click", function () {

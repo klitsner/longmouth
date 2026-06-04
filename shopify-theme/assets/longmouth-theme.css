@@ -120,23 +120,129 @@
   }
 }
 
-.policy-pane {
+.longmouth-theme .pages__wrap {
+  top: var(--nav-height);
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 1;
+  background-color: #fff;
   display: none;
+  position: absolute;
+  overflow: hidden;
 }
 
-.policy-pane.is-active {
+.longmouth-theme .pages__wrap.show {
   display: block;
 }
 
-.tab__link {
-  background: none;
+.longmouth-theme .policy__wrap {
+  z-index: 1;
+  background-color: #fff;
+  height: 100%;
+  padding-bottom: 100px;
+  display: none;
+  position: absolute;
+  overflow: auto;
+  inset: 0;
+}
+
+.longmouth-theme .policy__wrap.show {
+  display: block;
+}
+
+.longmouth-theme .policy__wrap.scroll-exempt {
+  inset: 0;
+}
+
+.longmouth-theme .tabs-menu {
+  z-index: 10;
+  background-color: #fff;
+  justify-content: center;
+  align-items: center;
+  padding-top: 5px;
+  padding-bottom: 5px;
+  display: flex;
+  position: sticky;
+  top: 0;
+}
+
+.longmouth-theme .tab__link {
+  vertical-align: top;
+  text-align: left;
+  background-color: transparent;
   border: 0;
+  padding: 9px 30px;
+  text-decoration: none;
+  display: inline-block;
+  position: relative;
+  opacity: 0.63;
   color: inherit;
   cursor: pointer;
 }
 
-.tab__link.is-active {
-  text-decoration: underline;
+.longmouth-theme .tab__link.is-active,
+.longmouth-theme .tab__link.w--current {
+  background-color: transparent;
+  opacity: 1;
+  color: #000;
+}
+
+.longmouth-theme .policy-tab-content {
+  padding: 48px 84px 120px;
+}
+
+.longmouth-theme .policy-pane {
+  display: none;
+}
+
+.longmouth-theme .policy-pane.is-active {
+  display: block;
+}
+
+.longmouth-theme .boring__heading {
+  margin-top: 0;
+  padding-left: 0;
+}
+
+.longmouth-theme .boring__page {
+  padding-left: 0;
+}
+
+.longmouth-theme .boring__text {
+  padding-left: 0;
+  overflow: visible;
+}
+
+@media screen and (max-width: 767px) {
+  .longmouth-theme .policy__wrap {
+    padding-top: 100px;
+    display: none;
+    inset: 0;
+  }
+
+  .longmouth-theme .policy__wrap.scroll-exempt {
+    padding-top: 0;
+  }
+
+  .longmouth-theme .tabs-menu {
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .longmouth-theme .tab__link {
+    padding-left: 20px;
+    padding-right: 20px;
+  }
+
+  .longmouth-theme .policy-tab-content {
+    padding: 28px 22px 96px;
+  }
+
+  .longmouth-theme .boring__heading,
+  .longmouth-theme .boring__text {
+    padding-left: 0;
+  }
 }
 
 .product-list__item {
