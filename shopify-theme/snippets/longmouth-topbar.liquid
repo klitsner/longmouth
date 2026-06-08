@@ -3,8 +3,42 @@
     <h1 id="long-text" class="longtitle">{{ site_title | default: 'longmouth.world' }}</h1>
   </div>
 
-  <button type="button" class="cart__btn" data-longmouth-open-cart>
-    <span class="cart__btn-text">cart</span>
-    <span class="cart_count">{{ cart.item_count }}</span>
-  </button>
+  <div class="cart__wrapper" data-open="on-add">
+    <div class="mini-cart_dropdown w-dropdown">
+      <button type="button" class="cart__btn w-dropdown-toggle" data-longmouth-open-cart aria-expanded="false" aria-controls="longmouth-mini-cart-dropdown-list">
+        <span class="cart__btn-text">cart</span>
+        <span class="cart_count">{{ cart.item_count }}</span>
+      </button>
+      <div id="longmouth-mini-cart-dropdown-list" class="mini-cart_dropdown-list w-dropdown-list" hidden>
+        <div class="mini-cart_form-dropdown w-form">
+          <div class="mini-cart_form" data-cart-form>
+            <div class="mini-cart_items scroll-exempt" data-cart-items></div>
+
+            <div class="mini-cart_footer">
+              <div class="display-flex space-between">
+                <div class="mini-cart__text">shipping</div>
+                <div class="mini-cart__text">calculated at checkout</div>
+              </div>
+              <div class="display-flex space-between">
+                <div class="mini-cart__text">total</div>
+                <div class="mini-cart__text" data-cart-total>{{ cart.total_price | money }}</div>
+              </div>
+              <div class="mini-cart_button-wrapper">
+                <a href="/checkout" class="mini-cart__btn w-button" data-cart-checkout>checkout</a>
+                <div class="btn-continue-shopping" data-cart-continue role="button" tabindex="0">continue shopping</div>
+              </div>
+            </div>
+          </div>
+
+          <div class="mini-cart_success w-form-done" data-cart-empty hidden>
+            <div class="empty-cart-label">your cart is empty. for now.</div>
+          </div>
+
+          <div class="mini-cart_error-message w-form-fail" data-cart-error hidden>
+            <div class="mini-cart_error-label">Oops! Something went wrong while updating your cart.</div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>

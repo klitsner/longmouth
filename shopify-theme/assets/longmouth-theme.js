@@ -168,7 +168,17 @@ document.addEventListener("DOMContentLoaded", function () {
   const menuWrap = root.querySelector(".menu__wrap");
   const menuBackWrap = root.querySelector(".menu-back__wrap");
   const homeButtonWrap = root.querySelector("#home__button");
-  const cartCount = root.querySelector(".cart_count");
+  const cartCountNodes = root.querySelectorAll(".cart_count");
+  const cartWrapper = root.querySelector(".cart__wrapper");
+  const cartTrigger = root.querySelector("[data-longmouth-open-cart]");
+  const cartDropdown = root.querySelector(".mini-cart_dropdown");
+  const cartDropdownList = root.querySelector(".mini-cart_dropdown-list");
+  const cartItemsContainer = root.querySelector("[data-cart-items]");
+  const cartTotalNode = root.querySelector("[data-cart-total]");
+  const cartFormNode = root.querySelector("[data-cart-form]");
+  const cartEmptyNode = root.querySelector("[data-cart-empty]");
+  const cartErrorNode = root.querySelector("[data-cart-error]");
+  const cartContinueNode = root.querySelector("[data-cart-continue]");
   let loadedProductCache = {};
   let navigationToken = 0;
 
@@ -436,6 +446,210 @@ document.addEventListener("DOMContentLoaded", function () {
       .replace(/>/g, "&gt;")
       .replace(/\"/g, "&quot;")
       .replace(/'/g, "&#039;");
+  }
+
+  function setCartCount(count) {
+    Array.from(cartCountNodes).forEach((node) => {
+      node.textContent = String(Number(count || 0));
+    });
+  }
+
+  function setCartErrorVisible(isVisible) {
+    if (!cartErrorNode) return;
+    cartErrorNode.hidden = !isVisible;
+  }
+
+  function isCartOpen() {
+    return Boolean(cartDropdownList && cartDropdownList.classList.contains("w--open"));
+  }
+
+  function openCart() {
+    if (!cartDropdownList) return;
+    cartDropdownList.classList.add("w--open");
+    cartDropdownList.hidden = false;
+    if (cartTrigger) cartTrigger.setAttribute("aria-expanded", "true");
+  }
+
+  function closeCart() {
+    if (!cartDropdownList) return;
+    cartDropdownList.classList.remove("w--open");
+    cartDropdownList.hidden = true;
+    if (cartTrigger) cartTrigger.setAttribute("aria-expanded", "false");
+  }
+
+  function toggleCart() {
+    if (isCartOpen()) {
+      closeCart();
+      return;
+    }
+    openCart();
+  }
+
+  function getCartItemImage(item) {
+    if (item && item.image) return item.image;
+    return "";
+  }
+
+  function renderCartItems(cart) {
+    if (!cartItemsContainer || !cartFormNode || !cartEmptyNode) return;
+
+    const items = (cart && cart.items) || [];
+    const hasItems = items.length > 0;
+
+    cartFormNode.hidden = !hasItems;
+    cartEmptyNode.hidden = hasItems;
+
+    if (!hasItems) {
+      cartItemsContainer.innerHTML = "";
+      return;
+    }
+
+    const markup = items.map((item) => {
+      const image = getCartItemImage(item);
+      const options = (item.options_with_values || []).filter((opt) => opt && opt.value && opt.value !== "Default Title");
+      const optionsMarkup = options
+        .map((opt) => {
+          return `<div class="display-inlineflex gap-tiny"><div option="name" class="mini-cart__text">${escapeHtml(opt.name)}</div><div class="mini-cart__text">:</div><div option="value" class="mini-cart__text">${escapeHtml(opt.value)}</div></div>`;
+        })
+        .join("");
+
+      return `
+        <div class="cart_item-wrapper" data-line-key="${escapeHtml(item.key)}">
+          <div class="cart_image-wrapper">
+            <button type="button" data-cart-action="remove" data-line-key="${escapeHtml(item.key)}" class="button is-remove" aria-label="Remove ${escapeHtml(item.product_title)} from cart">
+              <svg viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" class="cart__close-button">
+                <path fill-rule="evenodd" clip-rule="evenodd" d="M5.46967 5.46967C5.76256 5.17678 6.23744 5.17678 6.53033 5.46967L12 10.9393L17.4697 5.46967C17.7626 5.17678 18.2374 5.17678 18.5303 5.46967C18.8232 5.76256 18.8232 6.23744 18.5303 6.53033L13.0607 12L18.5303 17.4697C18.8232 17.7626 18.8232 18.2374 18.5303 18.5303C18.2374 18.8232 17.7626 18.8232 17.4697 18.5303L12 13.0607L6.53033 18.5303C6.23744 18.8232 5.76256 18.8232 5.46967 18.5303C5.17678 18.2374 5.17678 17.7626 5.46967 17.4697L10.9393 12L5.46967 6.53033C5.17678 6.23744 5.17678 5.76256 5.46967 5.46967Z" fill="currentColor"></path>
+              </svg>
+            </button>
+            ${image ? `<img loading="lazy" alt="${escapeHtml(item.product_title)}" src="${escapeHtml(image)}" class="cart_item-image">` : ""}
+          </div>
+          <div class="mini-cart_item-data">
+            <div class="mini-cart__text">${escapeHtml(item.product_title)}</div>
+            ${optionsMarkup}
+            <div class="display-flex space-between full-width">
+              <div class="mini-cart_quantity-wrapper">
+                <div>${item.quantity}</div>
+                <div>x</div>
+                <div>${escapeHtml(formatMoney(item.final_price))}</div>
+              </div>
+              <div class="add-to-cart_quantity-input-2">
+                <button type="button" data-cart-action="minus" data-line-key="${escapeHtml(item.key)}" data-quantity="${item.quantity}" class="add-to-cart_quantity-button" aria-label="Decrease quantity">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="" class="svg-icon-qt-2"><path d="M0 0h24v24H0z" fill="transparent"></path><path d="M19 13H5v-2h14v2z" fill="currentColor"></path></svg>
+                </button>
+                <input class="atc__quantity-field cart w-input" type="number" value="${item.quantity}" readonly aria-label="Quantity for ${escapeHtml(item.product_title)}">
+                <button type="button" data-cart-action="plus" data-line-key="${escapeHtml(item.key)}" data-quantity="${item.quantity}" class="add-to-cart_quantity-button" aria-label="Increase quantity">
+                  <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" class="svg-icon-qt-2"><path d="M0 0h24v24H0z" fill="transparent"></path><path d="M19 13h-6v6h-2v-6H5v-2h6V5h2v6h6v2z" fill="currentColor"></path></svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      `;
+    }).join("");
+
+    cartItemsContainer.innerHTML = markup;
+  }
+
+  async function fetchCartData() {
+    const response = await fetch("/cart.js", { headers: { Accept: "application/json" } });
+    if (!response.ok) throw new Error("Unable to fetch cart");
+    return response.json();
+  }
+
+  async function refreshCartUI(options = {}) {
+    const shouldOpen = Boolean(options.open);
+
+    try {
+      const cart = await fetchCartData();
+      setCartCount(cart.item_count || 0);
+      if (cartTotalNode) cartTotalNode.textContent = formatMoney(cart.total_price || 0);
+      renderCartItems(cart);
+      setCartErrorVisible(false);
+
+      if (shouldOpen && cart.item_count > 0) {
+        openCart();
+      }
+    } catch (error) {
+      console.error("Failed to refresh cart", error);
+      setCartErrorVisible(true);
+    }
+  }
+
+  async function updateCartLine(lineKey, quantity) {
+    const response = await fetch("/cart/change.js", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+        Accept: "application/json",
+      },
+      body: JSON.stringify({ id: lineKey, quantity }),
+    });
+
+    if (!response.ok) throw new Error("Unable to update cart line");
+    return response.json();
+  }
+
+  function initCart() {
+    if (!cartTrigger || !cartDropdownList || !cartWrapper) return;
+
+    cartTrigger.addEventListener("click", function (event) {
+      event.preventDefault();
+      const opening = !isCartOpen();
+      toggleCart();
+      if (opening) {
+        refreshCartUI();
+      }
+    });
+
+    if (cartContinueNode) {
+      cartContinueNode.addEventListener("click", function () {
+        closeCart();
+      });
+
+      cartContinueNode.addEventListener("keydown", function (event) {
+        if (event.key !== "Enter" && event.key !== " ") return;
+        event.preventDefault();
+        closeCart();
+      });
+    }
+
+    document.addEventListener("click", function (event) {
+      if (!isCartOpen()) return;
+      if (cartWrapper.contains(event.target)) return;
+      closeCart();
+    });
+
+    document.addEventListener("keydown", function (event) {
+      if (event.key !== "Escape") return;
+      closeCart();
+    });
+
+    if (cartItemsContainer) {
+      cartItemsContainer.addEventListener("click", async function (event) {
+        const button = event.target.closest("[data-cart-action]");
+        if (!button) return;
+
+        const action = button.getAttribute("data-cart-action");
+        const lineKey = button.getAttribute("data-line-key");
+        const currentQuantity = Number(button.getAttribute("data-quantity") || 0);
+        if (!lineKey) return;
+
+        let nextQuantity = currentQuantity;
+        if (action === "remove") nextQuantity = 0;
+        if (action === "plus") nextQuantity = Math.max(1, currentQuantity + 1);
+        if (action === "minus") nextQuantity = Math.max(0, currentQuantity - 1);
+
+        try {
+          await updateCartLine(lineKey, nextQuantity);
+          await refreshCartUI({ open: true });
+        } catch (error) {
+          console.error("Failed to update cart", error);
+          setCartErrorVisible(true);
+        }
+      });
+    }
+
+    refreshCartUI();
   }
 
   function getSelectedOptions(product, optionState) {
@@ -799,9 +1013,7 @@ document.addEventListener("DOMContentLoaded", function () {
           }),
         });
 
-        const cartRes = await fetch("/cart.js");
-        const cartData = await cartRes.json();
-        if (cartCount) cartCount.textContent = String(cartData.item_count || 0);
+          await refreshCartUI({ open: true });
       } catch (error) {
         console.error("Failed to add to cart", error);
       } finally {
@@ -1103,6 +1315,7 @@ document.addEventListener("DOMContentLoaded", function () {
   });
 
   initDraggableModals();
+  initCart();
 
   if (homeButtonWrap) {
     homeButtonWrap.addEventListener("click", function () {

@@ -678,6 +678,13 @@
 .variant_option-button,
 .variant_option-button:hover {
   border: none;
+  width: 55px;
+  min-width: 55px;
+  max-width: 55px;
+}
+
+.btn-continue-shopping {
+  cursor: pointer;
 }
 
 /* Size chart modal — position relative to panel rather than full viewport */
